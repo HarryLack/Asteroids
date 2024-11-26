@@ -2,6 +2,11 @@ import pygame
 from constants import *
 from player import Player
 
+updatable = pygame.sprite.Group()
+drawable = pygame.sprite.Group()
+
+Player.containers = (updatable, drawable)
+
 
 def main():
     print("Starting asteroids!")
@@ -21,10 +26,14 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        player.update(dt)
+        for u in updatable:
+            u.update(dt)
 
         screen.fill(pygame.Color(0, 0, 0))
-        player.draw(screen)
+
+        for d in drawable:
+            d.draw(screen)
+
         pygame.display.flip()
         dt = clock.tick(60) / 1000
 
