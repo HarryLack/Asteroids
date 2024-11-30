@@ -43,12 +43,11 @@ def main():
             if a.collides(player):
                 print("Game over!")
                 sys.exit()
-            
+
             for s in shots:
                 if s.collides(a):
-                    a.kill()
+                    a.split()
                     s.kill()
-                
 
         screen.fill(pygame.Color(0, 0, 0))
 
