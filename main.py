@@ -4,6 +4,7 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from player import Player
 from asteroidfield import AsteroidField
 from groups import updatable, drawable, asteroids, shots
+from test.ann_module import C
 
 
 def main():
@@ -12,9 +13,14 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
     pygame.init()
+
+    pygame.font.init()
+    font = pygame.font.SysFont(pygame.font.get_default_font(), 16)
+
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
+    score = 0
 
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     _ = AsteroidField()
@@ -30,18 +36,21 @@ def main():
 
         for a in asteroids:
             if a.collides(player):
-                print("Game over!")
+                print(f"Game over! {score} points!")
                 sys.exit()
 
             for s in shots:
                 if s.collides(a):
-                    a.split()
+                    score += a.split()
                     s.kill()
 
         screen.fill(pygame.Color(0, 0, 0))
 
         for d in drawable:
             d.draw(screen)
+
+        text = font.render(f"{score}", True, "#ffffff")
+        screen.blit(text, [0,0])
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
