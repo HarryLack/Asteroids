@@ -2,10 +2,12 @@ import pygame
 from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_MOVE_SPEED, PLAYER_SHOOT_SPEED, PLAYER_SHOOT_COOLDOWN
 from circleshape import CircleShape
 from shot import Shot
+from groups import updatable, drawable
 
 
 class Player(CircleShape):
-    def __init__(self, x, y):
+    containers = (updatable, drawable)
+    def __init__(self, x:float, y:float):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shot_timer = 0
@@ -33,7 +35,8 @@ class Player(CircleShape):
         if self.shot_timer > 0:
             return
 
-        shot = Shot(self.position.x, self.position.y)
+        pos: pygame.Vector2 = self.position
+        shot = Shot(pos.x, pos.y)
         shot.velocity = pygame.Vector2(0, 1).rotate(
             self.rotation) * PLAYER_SHOOT_SPEED
 

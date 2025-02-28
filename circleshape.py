@@ -1,12 +1,14 @@
+from __future__ import annotations
 import pygame
 
 # Base class for game objects
 
 
 class CircleShape(pygame.sprite.Sprite):
-    def __init__(self, x, y, radius):
+    containers = None
+    def __init__(self, x:float, y:float, radius: float):
         # we will be using this later
-        if hasattr(self, "containers"):
+        if self.containers:
             super().__init__(self.containers)
         else:
             super().__init__()
@@ -15,7 +17,7 @@ class CircleShape(pygame.sprite.Sprite):
         self.velocity = pygame.Vector2(0, 0)
         self.radius = radius
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.Surface):
         # sub-classes must override
         pass
 
@@ -23,5 +25,5 @@ class CircleShape(pygame.sprite.Sprite):
         # sub-classes must override
         pass
 
-    def collides(self, other):
+    def collides(self, other: CircleShape):
         return self.position.distance_to(other.position) <= self.radius + other.radius

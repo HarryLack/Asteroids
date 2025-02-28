@@ -1,10 +1,12 @@
 import pygame
 import random
 from asteroid import Asteroid
-from constants import *
+from constants import ASTEROID_MAX_RADIUS,SCREEN_HEIGHT,SCREEN_WIDTH, ASTEROID_SPAWN_RATE, ASTEROID_MIN_RADIUS,ASTEROID_KINDS
+from groups import updatable
 
 
 class AsteroidField(pygame.sprite.Sprite):
+    containers = (updatable)
     edges = [
         [
             pygame.Vector2(1, 0),
