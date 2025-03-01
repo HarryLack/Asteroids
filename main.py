@@ -4,7 +4,7 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from player import Player
 from asteroidfield import AsteroidField
 from groups import updatable, drawable, asteroids, shots
-from test.ann_module import C
+import time
 
 
 def main():
@@ -19,6 +19,7 @@ def main():
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    start_time = time.time()
     dt = 0
     score = 0
 
@@ -51,6 +52,10 @@ def main():
 
         text = font.render(f"{score}", True, "#ffffff")
         screen.blit(text, [0,0])
+
+        time_elapsed = time.gmtime(time.time() - start_time)
+        time_text = font.render(f"{time.strftime('%M:%S', time_elapsed)}", True, "#ffffff")
+        screen.blit(time_text, [200,0])
 
         pygame.display.flip()
         dt = clock.tick(60) / 1000
