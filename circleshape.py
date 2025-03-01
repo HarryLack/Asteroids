@@ -1,4 +1,5 @@
 from __future__ import annotations
+
 import pygame
 
 # Base class for game objects
@@ -6,7 +7,8 @@ import pygame
 
 class CircleShape(pygame.sprite.Sprite):
     containers = None
-    def __init__(self, x:float, y:float, radius: float):
+
+    def __init__(self, x: float, y: float, radius: float):
         # we will be using this later
         if self.containers:
             super().__init__(self.containers)

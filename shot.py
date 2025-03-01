@@ -1,12 +1,14 @@
 import pygame
+
 from circleshape import CircleShape
 from constants import SHOT_RADIUS
-from groups import shots, drawable, updatable
+from groups import drawable, shots, updatable
 
 
 class Shot(CircleShape):
     containers = (shots, drawable, updatable)
-    def __init__(self, x:float, y:float):
+
+    def __init__(self, x: float, y: float):
         super().__init__(x, y, SHOT_RADIUS)
 
     def draw(self, screen: pygame.Surface):

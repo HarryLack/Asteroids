@@ -1,10 +1,13 @@
 import sys
-import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, UI_COLOUR
-from player import Player
-from asteroidfield import AsteroidField
-from groups import updatable, drawable, asteroids, shots
 import time
+
+import pygame
+
+from asteroidfield import AsteroidField
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_COLOUR
+from groups import asteroids, drawable, shots, updatable
+from player import Player
+from ui import UI
 
 
 def main():
@@ -13,22 +16,23 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
 
     pygame.init()
-
     pygame.font.init()
     font = pygame.font.SysFont(pygame.font.get_default_font(), 16)
 
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    ui = UI(screen)
     clock = pygame.time.Clock()
     start_time = time.time()
     dt = 0
     score = 0
 
-    player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     _ = AsteroidField()
 
     paused = False
     # Game Loop
     while True:
+        ui.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -36,7 +40,6 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
                     paused = not paused
-
 
         if paused:
             continue
@@ -60,16 +63,16 @@ def main():
                 d.draw(screen)
 
             text = font.render(f"{score}", True, "#ffffff")
-            screen.blit(text, [0,0])
+            screen.blit(text, [0, 0])
 
-            time_elapsed = time.gmtime(time.time()-start_time)
+            time_elapsed = time.gmtime(time.time() - start_time)
             time_text = font.render(f"{time.strftime('%M:%S', time_elapsed)}", True, UI_COLOUR)
-            screen.blit(time_text, [200,0])
+            screen.blit(time_text, [200, 0])
 
-            pygame.display.flip()
             dt = clock.tick(60) / 1000
 
-
+        ui.draw()
+        pygame.display.flip()
 
 
 if __name__ == "__main__":
