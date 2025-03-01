@@ -15,7 +15,7 @@
 
 ## Self
 
-- [ ] Pause menu
-- [ ] Quit
+- [x] Pause menu
+- [x] Quit
 - [ ] Destruction animations
 - [ ] Multi-split asteroids
