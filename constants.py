@@ -1,3 +1,5 @@
+import pygame.color
+
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
 
@@ -15,4 +17,4 @@ PLAYER_SHOOT_COOLDOWN = 0.3
 
 SHOT_RADIUS = 5
 
-UI_COLOUR = "#FFFFFF"
+UI_COLOUR = pygame.color.Color("#FFFFFF")
