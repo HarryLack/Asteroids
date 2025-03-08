@@ -40,6 +40,8 @@ def main():
                 if event.key == pygame.K_ESCAPE:
                     if not game_state.paused:
                         ui_controller.set_ui("pause")
+                    else:
+                        ui_controller.set_ui("game")
 
                     game_state.paused = not game_state.paused
 
