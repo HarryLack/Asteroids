@@ -19,7 +19,6 @@ class GameUI(UIBase):
     def draw(self, screen, font):
         text = font.render(f"{game_state.score}", True, UI_COLOUR)
         screen.blit(text, [0, 0])
-        if game_state.start_time is not None:
-            time_elapsed = time.gmtime(time.time() - game_state.start_time)
-            time_text = font.render(f"{time.strftime('%M:%S', time_elapsed)}", True, UI_COLOUR)
-            screen.blit(time_text, [200, 0])
+        time_elapsed = time.gmtime(time.time() - game_state.start_time)
+        time_text = font.render(f"{time.strftime('%M:%S', time_elapsed)}", True, UI_COLOUR)
+        screen.blit(time_text, [200, 0])

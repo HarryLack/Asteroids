@@ -2,7 +2,7 @@ class GameState:
     def __init__(self):
         self.__score = 0
         self.__paused = False
-        self.__start_time: float | None = None
+        self.__start_time = 0.0
 
     @property
     def score(self):
