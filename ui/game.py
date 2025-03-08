@@ -22,3 +22,5 @@ class GameUI(UIBase):
         time_elapsed = time.gmtime(time.time() - game_state.start_time)
         time_text = font.render(f"{time.strftime('%M:%S', time_elapsed)}", True, UI_COLOUR)
         screen.blit(time_text, [200, 0])
+        lives_text = font.render(f"Lives: {game_state.player_lives}", True, UI_COLOUR)
+        screen.blit(lives_text, [400, 0])

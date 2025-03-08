@@ -51,16 +51,18 @@ def main():
         screen.fill(pygame.Color(0, 0, 0))
         handle_events()
 
-        if game_state.paused:
-            pass
-        else:
+        if not game_state.paused:
             for u in updatable:
                 u.update(dt)
 
             for a in asteroids:
                 if a.collides(player):
-                    print(f"Game over! {game_state.score} points!")
-                    sys.exit()
+                    game_state.player_lives -= 1
+                    if game_state.player_lives == 0:
+                        print(f"Game over! {game_state.score} points!")
+                        sys.exit()
+                    else:
+                        player.respawn()
 
                 for s in shots:
                     if s.collides(a):

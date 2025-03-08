@@ -13,6 +13,7 @@ class Player(CircleShape):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
         self.shot_timer = 0
+        self.__initial_pos = pygame.Vector2(x, y)
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -57,3 +58,8 @@ class Player(CircleShape):
             self.shoot()
 
         self.shot_timer -= dt
+
+    def respawn(self):
+        self.position = self.__initial_pos
+        self.rotation = 0
+        self.shot_timer = 0
