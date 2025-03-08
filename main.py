@@ -13,14 +13,13 @@ from ui.uicontroller import UIController
 
 def main():
     print("Starting asteroids!")
-    print(f"Screen width: {SCREEN_WIDTH}")
-    print(f"Screen height: {SCREEN_HEIGHT}")
 
     pygame.init()
     pygame.font.init()
-    font = pygame.font.SysFont(pygame.font.get_default_font(), 32)
 
+    font = pygame.font.SysFont(pygame.font.get_default_font(), 32)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+
     ui_controller = UIController(screen, font)
     clock = pygame.time.Clock()
     game_state.start_time = time.time()
@@ -32,7 +31,7 @@ def main():
     def handle_events():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return
+                sys.exit()
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
@@ -77,6 +76,8 @@ def main():
         ui_controller.update()
         ui_controller.draw()
         pygame.display.flip()
+
+    print("Goodbye")
 
 
 if __name__ == "__main__":
