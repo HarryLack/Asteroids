@@ -19,6 +19,7 @@ def main():
 
     font = pygame.font.SysFont(pygame.font.get_default_font(), 32)
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    background = pygame.image.load("./assets/background.png")
 
     ui_controller = UIController(screen, font)
     clock = pygame.time.Clock()
@@ -48,6 +49,7 @@ def main():
     # Game Loop
     while True:
         screen.fill(pygame.Color(0, 0, 0))
+        screen.blit(background, (0, 0))
         handle_events()
 
         if not game_state.paused:
