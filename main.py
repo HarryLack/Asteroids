@@ -29,10 +29,7 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     _ = AsteroidField()
 
-    ui_controller.set_ui("game")
-    # Game Loop
-    while True:
-        screen.fill(pygame.Color(0, 0, 0))
+    def handle_events():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -47,6 +44,12 @@ def main():
                     game_state.paused = not game_state.paused
 
             ui_controller.handle_event(event)
+
+    ui_controller.set_ui("game")
+    # Game Loop
+    while True:
+        screen.fill(pygame.Color(0, 0, 0))
+        handle_events()
 
         if game_state.paused:
             pass
