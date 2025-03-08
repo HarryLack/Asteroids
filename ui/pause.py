@@ -38,6 +38,8 @@ class PauseMenu(UIBase):
             elif event.key == pygame.K_RETURN:
                 if self.selected_option == 0:
                     game_state.paused = False
+                    self.parent.set_ui("game")
+
                 elif self.selected_option == 1:
                     pass
                 elif self.selected_option == 2:
