@@ -4,7 +4,7 @@ import time
 import pygame
 
 from asteroidfield import AsteroidField
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_COLOUR
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from gamestate import game_state
 from groups import asteroids, drawable, shots, updatable
 from player import Player
@@ -23,12 +23,13 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     ui_controller = UIController(screen, font)
     clock = pygame.time.Clock()
-    start_time = time.time()
+    game_state.start_time = time.time()
     dt = 0
 
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     _ = AsteroidField()
 
+    ui_controller.set_ui("game")
     # Game Loop
     while True:
         screen.fill(pygame.Color(0, 0, 0))
@@ -67,13 +68,6 @@ def main():
 
         for d in drawable:
             d.draw(screen)
-
-        text = font.render(f"{game_state.score}", True, UI_COLOUR)
-        screen.blit(text, [0, 0])
-
-        time_elapsed = time.gmtime(time.time() - start_time)
-        time_text = font.render(f"{time.strftime('%M:%S', time_elapsed)}", True, UI_COLOUR)
-        screen.blit(time_text, [200, 0])
 
         ui_controller.update()
         ui_controller.draw()

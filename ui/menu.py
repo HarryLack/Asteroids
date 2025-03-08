@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from ui.uicontroller import UIController
 
 
-class Menu(UIBase):
+class MainMenu(UIBase):
     def __init__(self, parent: "UIController"):
         super().__init__(parent)
         self.options = ["Start Game", "Options", "Exit"]
