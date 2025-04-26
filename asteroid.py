@@ -1,11 +1,8 @@
 import random
-
 import pygame
-
 from circleshape import CircleShape
 from constants import ASTEROID_BASE_SCORE, ASTEROID_MIN_RADIUS
 from groups import asteroids, drawable, updatable
-
 
 class Asteroid(CircleShape):
     containers = (asteroids, updatable, drawable)
@@ -19,8 +16,12 @@ class Asteroid(CircleShape):
     def update(self, dt):
         self.position += self.velocity * dt
 
-    def split(self):
+    def explode(self):
         self.kill()
+
+
+    def split(self):
+        self.explode()
         if self.radius <= ASTEROID_MIN_RADIUS:
             return ASTEROID_BASE_SCORE // self.radius
 

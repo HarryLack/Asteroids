@@ -4,9 +4,11 @@ import time
 import pygame
 
 from asteroidfield import AsteroidField
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH
+from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_COLOUR
+from explosion import Explosion
 from gamestate import game_state
 from groups import asteroids, drawable, shots, updatable
+from particle import Particle
 from player import Player
 from ui.uicontroller import UIController
 
@@ -29,6 +31,8 @@ def main():
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     _ = AsteroidField()
 
+    test_particle = Explosion(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, UI_COLOUR)
+
     def handle_events():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -42,6 +46,8 @@ def main():
                         ui_controller.set_ui("game")
 
                     game_state.paused = not game_state.paused
+                if event.key == pygame.K_RETURN:
+                    test_particle = Explosion(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, UI_COLOUR)
 
             ui_controller.handle_event(event)
 
