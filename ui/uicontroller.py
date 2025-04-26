@@ -2,9 +2,9 @@ import pygame
 from pygame.event import Event
 
 from ui.game import GameUI
-from ui.menu import MainMenu
-from ui.pause import PauseMenu
-from ui.ui import UIBase
+from ui.main_menu import MainMenu
+from ui.pause_menu import PauseMenu
+from ui.ui import UI_MODE, UIBase
 
 
 class UIController:
@@ -16,12 +16,12 @@ class UIController:
         self.game = GameUI(self)
         self.ui: UIBase = self.main_menu
 
-    def set_ui(self, state):
-        if state == "main_menu":
+    def set_ui(self, ui: UI_MODE):
+        if ui == UI_MODE.MAIN_MENU:
             self.ui = self.main_menu
-        elif state == "pause":
+        elif ui == UI_MODE.PAUSE:
             self.ui = self.pause
-        elif state == "game":
+        elif ui == UI_MODE.GAME:
             self.ui = self.game
 
         self.draw()

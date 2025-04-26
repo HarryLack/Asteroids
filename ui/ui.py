@@ -1,9 +1,13 @@
+from enum import Enum
 from typing import TYPE_CHECKING
 
 import pygame
 
 if TYPE_CHECKING:
     from ui.uicontroller import UIController
+
+
+UI_MODE = Enum("UI", ["MAIN_MENU", "PAUSE", "GAME"])
 
 
 class UIBase:

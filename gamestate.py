@@ -1,12 +1,16 @@
+from enum import Enum
+
 from constants import PLAYER_STARTING_LIVES
+
+GAME_MODE = Enum("State", ["MENU", "PLAY", "PAUSE"])
 
 
 class GameState:
     def __init__(self):
         self.__score = 0
-        self.__paused = False
         self.__start_time = 0.0
         self.__player_lives = PLAYER_STARTING_LIVES
+        self.__state: GAME_MODE = GAME_MODE.MENU
 
     @property
     def score(self):
@@ -17,12 +21,12 @@ class GameState:
         self.__score = value
 
     @property
-    def paused(self):
-        return self.__paused
+    def state(self):
+        return self.__state
 
-    @paused.setter
-    def paused(self, value):
-        self.__paused = value
+    @state.setter
+    def state(self, value: GAME_MODE):
+        self.__state = value
 
     @property
     def start_time(self):
