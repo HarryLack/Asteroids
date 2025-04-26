@@ -8,9 +8,9 @@ from ui.ui import UIBase
 
 
 class UIController:
-    def __init__(self, screen: pygame.Surface, font: pygame.font.Font):
+    def __init__(self, screen: pygame.Surface):
         self.screen = screen
-        self.font = font
+        self.font = pygame.font.SysFont(pygame.font.get_default_font(), 32)
         self.main_menu = MainMenu(self)
         self.pause = PauseMenu(self)
         self.game = GameUI(self)
