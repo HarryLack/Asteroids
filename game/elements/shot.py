@@ -1,7 +1,7 @@
 import pygame
 
-from circleshape import CircleShape
 from constants import SHOT_RADIUS
+from game.elements.circleshape import CircleShape
 from groups import drawable, shots, updatable
 
 

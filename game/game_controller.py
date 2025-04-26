@@ -3,12 +3,12 @@ import time
 
 import pygame
 
-from asteroidfield import AsteroidField
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_COLOUR
-from explosion import Explosion
-from gamestate import GAME_MODE, game_state
+from game.elements.asteroidfield import AsteroidField
+from game.elements.explosion import Explosion
+from game.elements.player import Player
+from game.game_state import GAME_MODE, Game_State
 from groups import asteroids, drawable, shots, updatable
-from player import Player
 from ui.uicontroller import UI_MODE, UIController
 
 
@@ -27,7 +27,7 @@ class GameController:
         self.test_particle = Explosion(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, UI_COLOUR)
 
     def run(self):
-        game_state.start_time = time.time()
+        Game_State.start_time = time.time()
         while True:
             self.handle_events()
             self.update(self.dt)
@@ -43,12 +43,12 @@ class GameController:
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    if game_state.state == GAME_MODE.PLAY:
+                    if Game_State.state == GAME_MODE.PLAY:
                         self.ui_controller.set_ui(UI_MODE.PAUSE)
-                        game_state.state = GAME_MODE.PAUSE
-                    elif game_state.state == GAME_MODE.PAUSE:
+                        Game_State.state = GAME_MODE.PAUSE
+                    elif Game_State.state == GAME_MODE.PAUSE:
                         self.ui_controller.set_ui(UI_MODE.GAME)
-                        game_state.state = GAME_MODE.PLAY
+                        Game_State.state = GAME_MODE.PLAY
 
                 # Temp
                 if event.key == pygame.K_RETURN:
@@ -58,22 +58,22 @@ class GameController:
             self.ui_controller.handle_event(event)
 
     def update(self, dt):
-        if game_state.state == GAME_MODE.PLAY:
+        if Game_State.state == GAME_MODE.PLAY:
             for u in updatable:
                 u.update(dt)
 
             for a in asteroids:
                 if a.collides(self.player):
-                    game_state.player_lives -= 1
-                    if game_state.player_lives == 0:
-                        print(f"Game over! {game_state.score} points!")
+                    Game_State.player_lives -= 1
+                    if Game_State.player_lives == 0:
+                        print(f"Game over! {Game_State.score} points!")
                         sys.exit()
                     else:
                         self.player.respawn()
 
                 for s in shots:
                     if s.collides(a):
-                        game_state.score += a.split()
+                        Game_State.score += a.split()
                         s.kill()
 
             self.dt = self.clock.tick(60) / 1000
@@ -82,7 +82,7 @@ class GameController:
 
     def draw(self):
         self.screen.blit(self.background, (0, 0))
-        if game_state.state == GAME_MODE.PLAY or game_state.state == GAME_MODE.PAUSE:
+        if Game_State.state == GAME_MODE.PLAY or Game_State.state == GAME_MODE.PAUSE:
             for d in drawable:
                 d.draw(self.screen)
         self.ui_controller.draw()

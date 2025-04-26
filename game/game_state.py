@@ -45,4 +45,4 @@ class GameState:
         self.__player_lives = value
 
 
-game_state = GameState()
+Game_State = GameState()

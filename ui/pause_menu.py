@@ -1,7 +1,7 @@
 import pygame
 from pygame.event import Event
 
-from gamestate import GAME_MODE, game_state
+from game.game_state import GAME_MODE, Game_State
 from ui.ui import UI_MODE, UIBase
 
 menu_options = ["Resume", "Options", "Quit"]
@@ -37,7 +37,7 @@ class PauseMenu(UIBase):
                 self.selected_option = (self.selected_option + 1) % len(menu_options)
             elif event.key == pygame.K_RETURN:
                 if self.selected_option == 0:
-                    game_state.state = GAME_MODE.PLAY
+                    Game_State.state = GAME_MODE.PLAY
                     self.parent.set_ui(UI_MODE.GAME)
 
                 elif self.selected_option == 1:

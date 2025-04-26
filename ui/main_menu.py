@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from gamestate import GAME_MODE, game_state
+from game.game_state import GAME_MODE, Game_State
 from ui.ui import UI_MODE, UIBase
 
 if TYPE_CHECKING:
@@ -40,7 +40,7 @@ class MainMenu(UIBase):
             elif event.key == pygame.K_RETURN:
                 if self.selected_option == 0:
                     self.parent.set_ui(UI_MODE.GAME)
-                    game_state.state = GAME_MODE.PLAY
+                    Game_State.state = GAME_MODE.PLAY
                 elif self.selected_option == 1:
                     pass
                 elif self.selected_option == 2:

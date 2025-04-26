@@ -2,7 +2,6 @@ import random
 
 import pygame
 
-from asteroid import Asteroid
 from constants import (
     ASTEROID_KINDS,
     ASTEROID_MAX_RADIUS,
@@ -11,6 +10,7 @@ from constants import (
     SCREEN_HEIGHT,
     SCREEN_WIDTH,
 )
+from game.elements.asteroid import Asteroid
 from groups import updatable
 
 

@@ -1,23 +1,20 @@
-import math
-import random
-import pygame
-
-from particle import Particle
+from game.elements.particle import Particle
 from groups import drawable, updatable
 
 MIN_PARTICLES = 5
 MAX_PARTICLES = 10
 
+
 class Explosion:
-    def __init__(self, x:float, y:float, color) -> None:
+    def __init__(self, x: float, y: float, color) -> None:
         self.particles = []
         self.timer = 0
-        count = 1#random.randint(MIN_PARTICLES, MAX_PARTICLES)
+        count = 1  # random.randint(MIN_PARTICLES, MAX_PARTICLES)
         for i in range(count):
-            dir = 360/count*i
-            print("dir",dir)
+            dir = 360 / count * i
+            print("dir", dir)
             particle = Particle(x, y, color, 5, speed=10.0, direction=dir)
-            particle.add(drawable,updatable)
+            particle.add(drawable, updatable)
             self.particles.append(particle)
 
     def update(self, dt):

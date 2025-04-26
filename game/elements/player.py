@@ -1,9 +1,9 @@
 import pygame
 
-from circleshape import CircleShape
 from constants import PLAYER_MOVE_SPEED, PLAYER_RADIUS, PLAYER_SHOOT_COOLDOWN, PLAYER_SHOOT_SPEED, PLAYER_TURN_SPEED
+from game.elements.circleshape import CircleShape
+from game.elements.shot import Shot
 from groups import drawable, updatable
-from shot import Shot
 
 
 class Player(CircleShape):
