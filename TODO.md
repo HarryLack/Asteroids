@@ -23,3 +23,6 @@
   - [ ] Add respawn timer
   - [ ] Allow reposition
 - [ ] Find/Make a better background
+- [ ] Start menu
+- [ ] Debug area
+- [ ] Settings Menu
