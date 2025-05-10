@@ -1,5 +1,3 @@
-import math
-
 import pygame
 
 
@@ -9,12 +7,7 @@ class Particle(pygame.sprite.Sprite):
         self.image = pygame.Surface((size, size))
         self.image.fill(color)
         self.position = pygame.Vector2(x, y)
-
-        # TODO: Understand and Fix this calc,
-        vel_x = speed * math.sin(direction)
-        vel_y = speed * math.cos(direction)
-        self.velocity = pygame.Vector2(vel_x, vel_y)
-        print(self.velocity)
+        self.velocity = pygame.Vector2(speed).rotate(direction)
 
     def update(self, dt):
         self.position += self.velocity * dt
