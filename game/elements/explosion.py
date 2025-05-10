@@ -7,8 +7,8 @@ from groups import drawable, updatable
 
 MIN_PARTICLES = 5
 MAX_PARTICLES = 10
-EXPLOSION_TIME = 0.5
-EXPLOSION_SPEED = 250.0
+EXPLOSION_TIME = 0.15
+EXPLOSION_SPEED = 500.0
 
 
 class Explosion(pygame.sprite.Sprite):

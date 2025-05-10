@@ -7,6 +7,7 @@ import pygame
 
 class CircleShape(pygame.sprite.Sprite):
     containers = None
+    position: pygame.Vector2 = pygame.Vector2(1_000_000)
 
     def __init__(self, x: float, y: float, radius: float):
         # we will be using this later

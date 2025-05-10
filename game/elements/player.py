@@ -1,8 +1,19 @@
+import sys
+
 import pygame
 
-from constants import PLAYER_MOVE_SPEED, PLAYER_RADIUS, PLAYER_SHOOT_COOLDOWN, PLAYER_SHOOT_SPEED, PLAYER_TURN_SPEED
+from constants import (
+    PLAYER_MOVE_SPEED,
+    PLAYER_RADIUS,
+    PLAYER_SHOOT_COOLDOWN,
+    PLAYER_SHOOT_SPEED,
+    PLAYER_TURN_SPEED,
+    UI_COLOUR,
+)
 from game.elements.circleshape import CircleShape
+from game.elements.explosion import Explosion
 from game.elements.shot import Shot
+from game.game_state import Game_State
 from groups import drawable, updatable
 
 
@@ -59,7 +70,12 @@ class Player(CircleShape):
 
         self.shot_timer -= dt
 
-    def respawn(self):
-        self.position = self.__initial_pos
+    def respawn(self, lives: int):
+        self.explosion = Explosion(self.position.x, self.position.y, UI_COLOUR)
+        if lives == 0:
+            print(f"Game over! {Game_State.score} points!")
+            # TODO: Do something other than just yeet the world
+            sys.exit()
+        self.position = pygame.Vector2(self.__initial_pos)
         self.rotation = 0
         self.shot_timer = 0

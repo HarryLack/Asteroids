@@ -2,7 +2,7 @@
 
 - [x] Add a scoring system
 - [x] Implement multiple lives and respawning
-- [ ] Add an explosion effect for the asteroids
+- [x] Add an explosion effect for the asteroids
 - [ ] Add acceleration to the player movement
 - [ ] Make the objects wrap around the screen instead of disappearing
 - [x] Add a background image
@@ -17,7 +17,7 @@
 
 - [x] Pause menu
 - [x] Quit
-- [ ] Destruction animations
+- [x] Destruction animations
 - [ ] Multi-split asteroids
 - [ ] Improve respawning
   - [ ] Add respawn timer

@@ -24,7 +24,7 @@ class GameController:
         self.player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
         _ = AsteroidField()
 
-        self.test_particle = Explosion(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, UI_COLOUR)
+        self.test_particle = None
 
     def run(self):
         Game_State.start_time = time.time()
@@ -65,11 +65,7 @@ class GameController:
             for a in asteroids:
                 if a.collides(self.player):
                     Game_State.player_lives -= 1
-                    if Game_State.player_lives == 0:
-                        print(f"Game over! {Game_State.score} points!")
-                        sys.exit()
-                    else:
-                        self.player.respawn()
+                    self.player.respawn(Game_State.player_lives)
 
                 for s in shots:
                     if s.collides(a):

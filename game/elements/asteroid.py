@@ -2,8 +2,9 @@ import random
 
 import pygame
 
-from constants import ASTEROID_BASE_SCORE, ASTEROID_MIN_RADIUS
+from constants import ASTEROID_BASE_SCORE, ASTEROID_MIN_RADIUS, UI_COLOUR
 from game.elements.circleshape import CircleShape
+from game.elements.explosion import Explosion
 from groups import asteroids, drawable, updatable
 
 
@@ -20,6 +21,7 @@ class Asteroid(CircleShape):
         self.position += self.velocity * dt
 
     def explode(self):
+        self.explosion = Explosion(self.position.x, self.position.y, UI_COLOUR)
         self.kill()
 
     def split(self):
