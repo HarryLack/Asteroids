@@ -24,5 +24,6 @@
   - [ ] Allow reposition
 - [ ] Find/Make a better background
 - [x] Start menu
+- [ ] Splash screen
 - [ ] Debug area
 - [ ] Settings Menu
