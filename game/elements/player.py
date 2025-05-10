@@ -3,7 +3,7 @@ import sys
 import pygame
 
 from constants import (
-    PLAYER_MOVE_SPEED,
+    PLAYER_MAX_MOVE_SPEED,
     PLAYER_RADIUS,
     PLAYER_SHOOT_COOLDOWN,
     PLAYER_SHOOT_SPEED,
@@ -25,6 +25,7 @@ class Player(CircleShape):
         self.rotation = 0
         self.shot_timer = 0
         self.__initial_pos = pygame.Vector2(x, y)
+        self.speed = 0.0
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -40,9 +41,9 @@ class Player(CircleShape):
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
 
-    def move(self, dt):
+    def move(self, speed):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
-        self.position += forward * PLAYER_MOVE_SPEED * dt
+        self.position += forward * speed
 
     def shoot(self):
         if self.shot_timer > 0:
@@ -57,16 +58,24 @@ class Player(CircleShape):
     def update(self, dt):
         keys = pygame.key.get_pressed()
 
+        if keys[pygame.K_SPACE]:
+            self.shoot()
         if keys[pygame.K_a]:
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
         if keys[pygame.K_s]:
-            self.move(-dt)
+            if self.speed > 0:
+                self.speed = 0
+            self.speed -= dt * 10
         if keys[pygame.K_w]:
-            self.move(dt)
-        if keys[pygame.K_SPACE]:
-            self.shoot()
+            if self.speed < 0:  #
+                self.speed = 0
+            self.speed += dt * 10
+
+        # Clamp speed
+        self.speed = pygame.math.clamp(self.speed, -PLAYER_MAX_MOVE_SPEED, PLAYER_MAX_MOVE_SPEED)
+        self.move(self.speed)
 
         self.shot_timer -= dt
 
@@ -78,4 +87,5 @@ class Player(CircleShape):
             sys.exit()
         self.position = pygame.Vector2(self.__initial_pos)
         self.rotation = 0
+        self.speed = 0
         self.shot_timer = 0
