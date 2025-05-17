@@ -19,6 +19,7 @@ class Asteroid(CircleShape):
 
     def update(self, dt):
         self.position += self.velocity * dt
+        self.edge_check()
 
     def explode(self):
         self.explosion = Explosion(self.position.x, self.position.y, UI_COLOUR)

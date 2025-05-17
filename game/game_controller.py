@@ -7,6 +7,7 @@ from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_COLOUR
 from game.elements.asteroidfield import AsteroidField
 from game.elements.explosion import Explosion
 from game.elements.player import Player
+from game.game_settings import Game_Settings
 from game.game_state import GAME_MODE, Game_State
 from groups import asteroids, drawable, shots, updatable
 from ui.uicontroller import UI_MODE, UIController
@@ -63,7 +64,7 @@ class GameController:
                 u.update(dt)
 
             for a in asteroids:
-                if a.collides(self.player):
+                if not Game_Settings.invincible and a.collides(self.player):
                     Game_State.player_lives -= 1
                     self.player.respawn(Game_State.player_lives)
 
