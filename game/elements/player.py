@@ -5,14 +5,12 @@ import pygame
 from constants import (
     PLAYER_MAX_MOVE_SPEED,
     PLAYER_RADIUS,
-    PLAYER_SHOOT_COOLDOWN,
-    PLAYER_SHOOT_SPEED,
     PLAYER_TURN_SPEED,
     UI_COLOUR,
 )
 from game.elements.circleshape import CircleShape
 from game.elements.explosion import Explosion
-from game.elements.shot import Shot
+from game.elements.weapons.gun import Gun
 from game.game_state import Game_State
 from groups import drawable, updatable
 
@@ -26,6 +24,7 @@ class Player(CircleShape):
         self.shot_timer = 0
         self.__initial_pos = pygame.Vector2(x, y)
         self.speed = 0.0
+        self.__weapon = Gun()
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -47,14 +46,13 @@ class Player(CircleShape):
         self.edge_check()
 
     def shoot(self):
-        if self.shot_timer > 0:
-            return
+        self.__weapon.shoot(self.position, self.rotation)
 
-        pos: pygame.Vector2 = self.position
-        shot = Shot(pos.x, pos.y)
-        shot.velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
-
-        self.shot_timer = PLAYER_SHOOT_COOLDOWN
+    def __slow(self, dt):
+        if self.speed > 0:
+            self.speed -= dt * 15
+        elif self.speed < 0:
+            self.speed += dt * 15
 
     def update(self, dt):
         keys = pygame.key.get_pressed()
@@ -69,16 +67,18 @@ class Player(CircleShape):
             if self.speed > 0:
                 self.speed = 0
             self.speed -= dt * 10
-        if keys[pygame.K_w]:
+        elif keys[pygame.K_w]:
             if self.speed < 0:
                 self.speed = 0
             self.speed += dt * 10
+        else:
+            self.__slow(dt)
 
         # Clamp speed
         self.speed = pygame.math.clamp(self.speed, -PLAYER_MAX_MOVE_SPEED, PLAYER_MAX_MOVE_SPEED)
         self.move(self.speed)
 
-        self.shot_timer -= dt
+        self.__weapon.timer -= dt
 
     def respawn(self, lives: int):
         self.explosion = Explosion(self.position.x, self.position.y, UI_COLOUR)
@@ -89,4 +89,4 @@ class Player(CircleShape):
         self.position = pygame.Vector2(self.__initial_pos)
         self.rotation = 0
         self.speed = 0
-        self.shot_timer = 0
+        self.__weapon.timer = 0

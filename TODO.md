@@ -29,3 +29,4 @@
 - [ ] Settings Menu
 - [ ] Range limit on weapons
 - [ ] Player deceleration
+- [ ] Make losing not kill the game
