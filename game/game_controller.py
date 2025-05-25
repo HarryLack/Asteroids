@@ -3,9 +3,8 @@ import time
 
 import pygame
 
-from constants import SCREEN_HEIGHT, SCREEN_WIDTH, UI_COLOUR
+from constants import DEFAULT_SCREEN_HEIGHT, DEFAULT_SCREEN_WIDTH
 from game.elements.asteroidfield import AsteroidField
-from game.elements.explosion import Explosion
 from game.elements.player import Player
 from game.game_settings import Game_Settings
 from game.game_state import GAME_MODE, Game_State
@@ -15,17 +14,15 @@ from ui.uicontroller import UI_MODE, UIController
 
 class GameController:
     def __init__(self):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.screen = pygame.display.set_mode((DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT))
         self.background = pygame.image.load("./assets/background.png")
         self.ui_controller = UIController(self.screen)
         self.ui_controller.set_ui(UI_MODE.MAIN_MENU)
         self.clock = pygame.time.Clock()
         self.dt = 0
 
-        self.player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+        self.player = Player(DEFAULT_SCREEN_WIDTH / 2, DEFAULT_SCREEN_HEIGHT / 2)
         _ = AsteroidField()
-
-        self.test_particle = None
 
     def run(self):
         Game_State.start_time = time.time()
@@ -50,10 +47,6 @@ class GameController:
                     elif Game_State.state == GAME_MODE.PAUSE:
                         self.ui_controller.set_ui(UI_MODE.GAME)
                         Game_State.state = GAME_MODE.PLAY
-
-                # Temp
-                if event.key == pygame.K_RETURN:
-                    self.test_particle = Explosion(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, UI_COLOUR)
 
             # UI Events
             self.ui_controller.handle_event(event)

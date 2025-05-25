@@ -7,8 +7,8 @@ from constants import (
     ASTEROID_MAX_RADIUS,
     ASTEROID_MIN_RADIUS,
     ASTEROID_SPAWN_RATE,
-    SCREEN_HEIGHT,
-    SCREEN_WIDTH,
+    DEFAULT_SCREEN_HEIGHT,
+    DEFAULT_SCREEN_WIDTH,
 )
 from game.elements.asteroid import Asteroid
 from groups import updatable
@@ -19,19 +19,19 @@ class AsteroidField(pygame.sprite.Sprite):
     edges = [
         [
             pygame.Vector2(1, 0),
-            lambda y: pygame.Vector2(-ASTEROID_MAX_RADIUS, y * SCREEN_HEIGHT),
+            lambda y: pygame.Vector2(-ASTEROID_MAX_RADIUS, y * DEFAULT_SCREEN_HEIGHT),
         ],
         [
             pygame.Vector2(-1, 0),
-            lambda y: pygame.Vector2(SCREEN_WIDTH + ASTEROID_MAX_RADIUS, y * SCREEN_HEIGHT),
+            lambda y: pygame.Vector2(DEFAULT_SCREEN_WIDTH + ASTEROID_MAX_RADIUS, y * DEFAULT_SCREEN_HEIGHT),
         ],
         [
             pygame.Vector2(0, 1),
-            lambda x: pygame.Vector2(x * SCREEN_WIDTH, -ASTEROID_MAX_RADIUS),
+            lambda x: pygame.Vector2(x * DEFAULT_SCREEN_WIDTH, -ASTEROID_MAX_RADIUS),
         ],
         [
             pygame.Vector2(0, -1),
-            lambda x: pygame.Vector2(x * SCREEN_WIDTH, SCREEN_HEIGHT + ASTEROID_MAX_RADIUS),
+            lambda x: pygame.Vector2(x * DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT + ASTEROID_MAX_RADIUS),
         ],
     ]
 

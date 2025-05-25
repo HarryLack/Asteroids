@@ -33,3 +33,6 @@
 - [ ] Create more weapon types
 - [ ] Pickups
 - [ ] Rougelike-ify?
+
+## Bugs
+Shotgun duplicating asteroids on hit
