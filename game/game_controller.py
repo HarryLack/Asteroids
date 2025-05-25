@@ -58,6 +58,8 @@ class GameController:
             # UI Events
             self.ui_controller.handle_event(event)
 
+            self.player.handle_event(event)
+
     def update(self, dt):
         if Game_State.state == GAME_MODE.PLAY:
             for u in updatable:

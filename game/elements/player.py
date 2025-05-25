@@ -11,6 +11,7 @@ from constants import (
 from game.elements.circleshape import CircleShape
 from game.elements.explosion import Explosion
 from game.elements.weapons.gun import Gun
+from game.elements.weapons.shotgun import Shotgun
 from game.game_state import Game_State
 from groups import drawable, updatable
 
@@ -24,7 +25,8 @@ class Player(CircleShape):
         self.shot_timer = 0
         self.__initial_pos = pygame.Vector2(x, y)
         self.speed = 0.0
-        self.__weapon = Gun()
+        self.__weapons = [Gun(), Shotgun()]
+        self.__selected_weapon = 0
 
     def triangle(self):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
@@ -46,7 +48,7 @@ class Player(CircleShape):
         self.edge_check()
 
     def shoot(self):
-        self.__weapon.shoot(self.position, self.rotation)
+        self.__weapons[self.__selected_weapon].shoot(self.position, self.rotation)
 
     def __slow(self, dt):
         if self.speed > 0:
@@ -59,6 +61,7 @@ class Player(CircleShape):
 
         if keys[pygame.K_SPACE]:
             self.shoot()
+        # Move
         if keys[pygame.K_a]:
             self.rotate(-dt)
         if keys[pygame.K_d]:
@@ -78,7 +81,17 @@ class Player(CircleShape):
         self.speed = pygame.math.clamp(self.speed, -PLAYER_MAX_MOVE_SPEED, PLAYER_MAX_MOVE_SPEED)
         self.move(self.speed)
 
-        self.__weapon.timer -= dt
+        for weapon in self.__weapons:
+            weapon.update(dt)
+
+    def handle_event(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                print("q")
+                self.__selected_weapon = (self.__selected_weapon - 1) % len(self.__weapons)
+            elif event.key == pygame.K_e:
+                print("e")
+                self.__selected_weapon = (self.__selected_weapon + 1) % len(self.__weapons)
 
     def respawn(self, lives: int):
         self.explosion = Explosion(self.position.x, self.position.y, UI_COLOUR)
@@ -89,4 +102,5 @@ class Player(CircleShape):
         self.position = pygame.Vector2(self.__initial_pos)
         self.rotation = 0
         self.speed = 0
-        self.__weapon.timer = 0
+        for weapon in self.__weapons:
+            weapon.timer = 0

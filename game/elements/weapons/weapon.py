@@ -12,3 +12,6 @@ class Weapon:
     def shoot(self, position: pygame.Vector2, angle: int):
         # TBI per subclass
         pass
+
+    def update(self, dt):
+        self.timer -= dt

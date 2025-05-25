@@ -26,7 +26,6 @@ class Explosion(pygame.sprite.Sprite):
 
     def update(self, dt):
         self.timer += dt
-        print(self.timer)
         if self.timer >= EXPLOSION_TIME:
             for particle in self.particles:
                 particle.kill()
